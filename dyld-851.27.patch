@@ -1,0 +1,789 @@
+diff -ruN dyld-851.27-original/dyld.xcodeproj/project.pbxproj dyld-851.27-new/dyld.xcodeproj/project.pbxproj
+--- dyld-851.27-original/dyld.xcodeproj/project.pbxproj	2020-12-11 18:53:32.000000000 -0500
++++ dyld-851.27-new/dyld.xcodeproj/project.pbxproj	2021-06-01 13:55:46.000000000 -0400
+@@ -4016,12 +4016,16 @@
+ 				GCC_DYNAMIC_NO_PIC = NO;
+ 				GCC_MODEL_TUNING = G5;
+ 				GCC_OPTIMIZATION_LEVEL = 0;
++				GCC_PREPROCESSOR_DEFINITIONS = (
++					SUPPORT_ARCH_arm64e,
++					SUPPORT_ARCH_arm64_32,
++				);
+ 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+ 				INSTALL_PATH = "$(INSTALL_LOCATION)/usr/local/bin";
+ 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+ 				OTHER_CFLAGS = "-DBUILDING_SHARED_CACHE_UTIL=1";
+ 				PRODUCT_NAME = dyld_shared_cache_util;
+-				SDKROOT = macosx.internal;
++				SDKROOT = macosx;
+ 				SUPPORTED_PLATFORMS = "macosx iphoneos watchos appletvos bridgeos";
+ 			};
+ 			name = Debug;
+@@ -4033,12 +4037,16 @@
+ 				COPY_PHASE_STRIP = YES;
+ 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+ 				GCC_DYNAMIC_NO_PIC = NO;
++				GCC_PREPROCESSOR_DEFINITIONS = (
++					SUPPORT_ARCH_arm64e,
++					SUPPORT_ARCH_arm64_32,
++				);
+ 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+ 				INSTALL_PATH = "$(INSTALL_LOCATION)/usr/local/bin";
+ 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+ 				OTHER_CFLAGS = "-DBUILDING_SHARED_CACHE_UTIL=1";
+ 				PRODUCT_NAME = dyld_shared_cache_util;
+-				SDKROOT = macosx.internal;
++				SDKROOT = macosx;
+ 				SKIP_INSTALL = NO;
+ 				SUPPORTED_PLATFORMS = "macosx iphoneos watchos appletvos bridgeos";
+ 			};
+diff -ruN dyld-851.27-original/dyld.xcodeproj/project.xcworkspace/contents.xcworkspacedata dyld-851.27-new/dyld.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+--- dyld-851.27-original/dyld.xcodeproj/project.xcworkspace/contents.xcworkspacedata	1969-12-31 19:00:00.000000000 -0500
++++ dyld-851.27-new/dyld.xcodeproj/project.xcworkspace/contents.xcworkspacedata	2021-06-01 13:40:44.000000000 -0400
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<Workspace
++   version = "1.0">
++   <FileRef
++      location = "self:">
++   </FileRef>
++</Workspace>
+diff -ruN dyld-851.27-original/dyld.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist dyld-851.27-new/dyld.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+--- dyld-851.27-original/dyld.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist	1969-12-31 19:00:00.000000000 -0500
++++ dyld-851.27-new/dyld.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist	2021-06-01 13:40:44.000000000 -0400
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>IDEDidComputeMac32BitWarning</key>
++	<true/>
++</dict>
++</plist>
+Binary files dyld-851.27-original/dyld.xcodeproj/project.xcworkspace/xcuserdata/matt.xcuserdatad/UserInterfaceState.xcuserstate and dyld-851.27-new/dyld.xcodeproj/project.xcworkspace/xcuserdata/matt.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff -ruN dyld-851.27-original/dyld.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/xcschememanagement.plist dyld-851.27-new/dyld.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/xcschememanagement.plist
+--- dyld-851.27-original/dyld.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/xcschememanagement.plist	1969-12-31 19:00:00.000000000 -0500
++++ dyld-851.27-new/dyld.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/xcschememanagement.plist	2021-06-01 13:40:44.000000000 -0400
+@@ -0,0 +1,134 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>SchemeUserState</key>
++	<dict>
++		<key>all.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>17</integer>
++		</dict>
++		<key>chroot_util.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>2</integer>
++		</dict>
++		<key>dsc_extractor.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>8</integer>
++		</dict>
++		<key>dyld.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>3</integer>
++		</dict>
++		<key>dyld_app_cache_util.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>14</integer>
++		</dict>
++		<key>dyld_closure_util.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>9</integer>
++		</dict>
++		<key>dyld_executables.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>15</integer>
++		</dict>
++		<key>dyld_info.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>19</integer>
++		</dict>
++		<key>dyld_shared_cache_builder.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>21</integer>
++		</dict>
++		<key>dyld_shared_cache_util.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>4</integer>
++		</dict>
++		<key>dyld_tests.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>18</integer>
++		</dict>
++		<key>dyld_usage.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>13</integer>
++		</dict>
++		<key>libKernelCollectionBuilder.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>10</integer>
++		</dict>
++		<key>libdsc.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>11</integer>
++		</dict>
++		<key>libdyld.dylib.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>1</integer>
++		</dict>
++		<key>libdyld.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>6</integer>
++		</dict>
++		<key>libdyld_driverkit.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>0</integer>
++		</dict>
++		<key>libslc_builder.dylib.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>22</integer>
++		</dict>
++		<key>nocr.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>16</integer>
++		</dict>
++		<key>run-static.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>24</integer>
++		</dict>
++		<key>test_support.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>12</integer>
++		</dict>
++		<key>update_dyld_shared_cache.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>5</integer>
++		</dict>
++		<key>update_dyld_shared_cache_root_mode_tool.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>23</integer>
++		</dict>
++		<key>update_dyld_shared_cache_tool.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>20</integer>
++		</dict>
++		<key>update_dyld_sim_shared_cache.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>7</integer>
++		</dict>
++	</dict>
++</dict>
++</plist>
+diff -ruN dyld-851.27-original/dyld3/Closure.cpp dyld-851.27-new/dyld3/Closure.cpp
+--- dyld-851.27-original/dyld3/Closure.cpp	2020-09-11 13:52:16.000000000 -0400
++++ dyld-851.27-new/dyld3/Closure.cpp	2021-06-01 13:50:03.000000000 -0400
+@@ -30,13 +30,13 @@
+ #include <mach-o/dyld_priv.h>
+ #include <sys/stat.h>
+ #include <sys/sysctl.h>
+-#include <System/machine/cpu_capabilities.h>
+-#include <_simple.h>
++//#include <System/machine/cpu_capabilities.h>
++//#include <_simple.h>
+ 
+-extern "C" {
+-  #include <corecrypto/ccdigest.h>
+-  #include <corecrypto/ccsha2.h>
+-}
++//extern "C" {
++//  #include <corecrypto/ccdigest.h>
++//  #include <corecrypto/ccsha2.h>
++//}
+ 
+ #include "Closure.h"
+ #include "MachOFile.h"
+@@ -1306,7 +1306,8 @@
+ static bool getContainerLibraryCachesDir(const char* envp[], char libCacheDir[])
+ {
+     // $HOME is root of writable data container
+-    const char* homeDir = _simple_getenv(envp, "HOME");
++//    const char* homeDir = _simple_getenv(envp, "HOME");
++    const char* homeDir = getenv("HOME");
+     if ( homeDir == nullptr )
+         return false;
+ 
+diff -ruN dyld-851.27-original/dyld3/ClosureFileSystemPhysical.cpp dyld-851.27-new/dyld3/ClosureFileSystemPhysical.cpp
+--- dyld-851.27-original/dyld3/ClosureFileSystemPhysical.cpp	2020-08-30 16:20:12.000000000 -0400
++++ dyld-851.27-new/dyld3/ClosureFileSystemPhysical.cpp	2021-06-01 13:43:14.000000000 -0400
+@@ -35,7 +35,7 @@
+ #include <mach/mach.h>
+ #if !TARGET_OS_SIMULATOR && !TARGET_OS_DRIVERKIT
+   #include <sandbox.h>
+-  #include <sandbox/private.h>
++//  #include <sandbox/private.h>
+ #endif
+ #include <TargetConditionals.h>
+ #include "MachOFile.h"
+@@ -75,13 +75,13 @@
+ 
+ static bool sandboxBlocked(const char* path, const char* kind)
+ {
+-#if TARGET_OS_SIMULATOR || TARGET_OS_DRIVERKIT
++//#if TARGET_OS_SIMULATOR || TARGET_OS_DRIVERKIT
+     // sandbox calls not yet supported in dyld_sim
+     return false;
+-#else
+-    sandbox_filter_type filter = (sandbox_filter_type)(SANDBOX_FILTER_PATH | SANDBOX_CHECK_NO_REPORT);
+-    return ( sandbox_check(getpid(), kind, filter, path) > 0 );
+-#endif
++//#else
++//    sandbox_filter_type filter = (sandbox_filter_type)(SANDBOX_FILTER_PATH | SANDBOX_CHECK_NO_REPORT);
++//    return ( sandbox_check(getpid(), kind, filter, path) > 0 );
++//#endif
+ }
+ 
+ static bool sandboxBlockedMmap(const char* path)
+diff -ruN dyld-851.27-original/dyld3/Diagnostics.cpp dyld-851.27-new/dyld3/Diagnostics.cpp
+--- dyld-851.27-original/dyld3/Diagnostics.cpp	2020-03-09 16:59:58.000000000 -0400
++++ dyld-851.27-new/dyld3/Diagnostics.cpp	2021-06-01 13:51:56.000000000 -0400
+@@ -30,7 +30,7 @@
+ #include <uuid/uuid.h>
+ #include <fcntl.h>
+ #include <errno.h>
+-#include <_simple.h>
++//#include <_simple.h>
+ #include <unistd.h>
+ #include <sys/uio.h>
+ #include <sys/param.h>
+@@ -47,7 +47,7 @@
+ #include <mach-o/nlist.h>
+ #include <mach-o/fat.h>
+ #include <pthread.h>
+-#include <libc_private.h>
++//#include <libc_private.h>
+ 
+ #include "Diagnostics.h"
+ 
+@@ -87,21 +87,21 @@
+ 
+ void Diagnostics::error(const char* format, va_list list)
+ {
+-    //FIXME: this should be assertNoError(), but we currently overwrite some errors
+-    //assertNoError();
+-    _buffer = _simple_salloc();
+-    _simple_vsprintf(_buffer, format, list);
+-
+-#if BUILDING_CACHE_BUILDER
+-    if ( !_verbose )
+-        return;
+-
+-    if (_prefix.empty()) {
+-        fprintf(stderr, "%s\n", _simple_string(_buffer));
+-    } else {
+-        fprintf(stderr, "[%s] %s\n", _prefix.c_str(), _simple_string(_buffer));
+-    }
+-#endif
++//    //FIXME: this should be assertNoError(), but we currently overwrite some errors
++//    //assertNoError();
++//    _buffer = _simple_salloc();
++//    _simple_vsprintf(_buffer, format, list);
++//
++//#if BUILDING_CACHE_BUILDER
++//    if ( !_verbose )
++//        return;
++//
++//    if (_prefix.empty()) {
++//        fprintf(stderr, "%s\n", _simple_string(_buffer));
++//    } else {
++//        fprintf(stderr, "[%s] %s\n", _prefix.c_str(), _simple_string(_buffer));
++//    }
++//#endif
+ }
+ 
+ bool Diagnostics::hasError() const
+@@ -116,29 +116,30 @@
+ 
+ void Diagnostics::clearError()
+ {
+-    if ( _buffer )
+-        _simple_sfree(_buffer);
++//    if ( _buffer )
++//        _simple_sfree(_buffer);
+     _buffer = nullptr;
+ }
+ 
+ void Diagnostics::assertNoError() const
+ {
+-    if ( _buffer != nullptr )
+-        abort_report_np("%s", _simple_string(_buffer));
++//    if ( _buffer != nullptr )
++//        abort_report_np("%s", _simple_string(_buffer));
+ }
+ 
+ bool Diagnostics::errorMessageContains(const char* subString) const
+ {
+-    if ( _buffer == nullptr )
++//    if ( _buffer == nullptr )
+         return false;
+-    return (strstr(_simple_string(_buffer), subString) != nullptr);
++//    return (strstr(_simple_string(_buffer), subString) != nullptr);
+ }
+ 
+ 
+ #if !BUILDING_CACHE_BUILDER
+ const char* Diagnostics::errorMessage() const
+ {
+-    return _simple_string(_buffer);
++//    return _simple_string(_buffer);
++    return "none";
+ }
+ 
+ #else
+diff -ruN dyld-851.27-original/dyld3/Loading.h dyld-851.27-new/dyld3/Loading.h
+--- dyld-851.27-original/dyld3/Loading.h	2020-02-27 18:18:26.000000000 -0500
++++ dyld-851.27-new/dyld3/Loading.h	2021-06-01 13:52:25.000000000 -0400
+@@ -29,7 +29,7 @@
+ #include <string.h>
+ #include <stdint.h>
+ #include <mach/mach.h>
+-#include <_simple.h>
++//#include <_simple.h>
+ 
+ #include "Closure.h"
+ #include "MachOLoaded.h"
+diff -ruN dyld-851.27-original/dyld3/MachOLoaded.cpp dyld-851.27-new/dyld3/MachOLoaded.cpp
+--- dyld-851.27-original/dyld3/MachOLoaded.cpp	2020-06-30 19:10:59.000000000 -0400
++++ dyld-851.27-new/dyld3/MachOLoaded.cpp	2021-06-01 13:42:35.000000000 -0400
+@@ -34,11 +34,11 @@
+ #include <assert.h>
+ #include <mach-o/reloc.h>
+ #include <mach-o/nlist.h>
+-extern "C" {
+-  #include <corecrypto/ccdigest.h>
+-  #include <corecrypto/ccsha1.h>
+-  #include <corecrypto/ccsha2.h>
+-}
++//extern "C" {
++//  #include <corecrypto/ccdigest.h>
++//  #include <corecrypto/ccsha1.h>
++//  #include <corecrypto/ccsha2.h>
++//}
+ 
+ #include "MachOFile.h"
+ #include "MachOLoaded.h"
+@@ -797,48 +797,48 @@
+ void MachOLoaded::forEachCDHashOfCodeSignature(const void* codeSigStart, size_t codeSignLen,
+                                                void (^callback)(const uint8_t cdHash[20])) const
+ {
+-    forEachCodeDirectoryBlob(codeSigStart, codeSignLen, ^(const void *cdBuffer) {
+-        const CS_CodeDirectory* cd = (const CS_CodeDirectory*)cdBuffer;
+-        uint32_t cdLength = htonl(cd->length);
+-        uint8_t cdHash[20];
+-        if ( cd->hashType == CS_HASHTYPE_SHA384 ) {
+-            uint8_t digest[CCSHA384_OUTPUT_SIZE];
+-            const struct ccdigest_info* di = ccsha384_di();
+-            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
+-            ccdigest_init(di, tempBuf);
+-            ccdigest_update(di, tempBuf, cdLength, cd);
+-            ccdigest_final(di, tempBuf, digest);
+-            ccdigest_di_clear(di, tempBuf);
+-            // cd-hash of sigs that use SHA384 is the first 20 bytes of the SHA384 of the code digest
+-            memcpy(cdHash, digest, 20);
+-            callback(cdHash);
+-            return;
+-        }
+-        else if ( (cd->hashType == CS_HASHTYPE_SHA256) || (cd->hashType == CS_HASHTYPE_SHA256_TRUNCATED) ) {
+-            uint8_t digest[CCSHA256_OUTPUT_SIZE];
+-            const struct ccdigest_info* di = ccsha256_di();
+-            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
+-            ccdigest_init(di, tempBuf);
+-            ccdigest_update(di, tempBuf, cdLength, cd);
+-            ccdigest_final(di, tempBuf, digest);
+-            ccdigest_di_clear(di, tempBuf);
+-            // cd-hash of sigs that use SHA256 is the first 20 bytes of the SHA256 of the code digest
+-            memcpy(cdHash, digest, 20);
+-            callback(cdHash);
+-            return;
+-        }
+-        else if ( cd->hashType == CS_HASHTYPE_SHA1 ) {
+-            // compute hash directly into return buffer
+-            const struct ccdigest_info* di = ccsha1_di();
+-            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
+-            ccdigest_init(di, tempBuf);
+-            ccdigest_update(di, tempBuf, cdLength, cd);
+-            ccdigest_final(di, tempBuf, cdHash);
+-            ccdigest_di_clear(di, tempBuf);
+-            callback(cdHash);
+-            return;
+-        }
+-    });
++//    forEachCodeDirectoryBlob(codeSigStart, codeSignLen, ^(const void *cdBuffer) {
++//        const CS_CodeDirectory* cd = (const CS_CodeDirectory*)cdBuffer;
++//        uint32_t cdLength = htonl(cd->length);
++//        uint8_t cdHash[20];
++//        if ( cd->hashType == CS_HASHTYPE_SHA384 ) {
++//            uint8_t digest[CCSHA384_OUTPUT_SIZE];
++//            const struct ccdigest_info* di = ccsha384_di();
++//            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
++//            ccdigest_init(di, tempBuf);
++//            ccdigest_update(di, tempBuf, cdLength, cd);
++//            ccdigest_final(di, tempBuf, digest);
++//            ccdigest_di_clear(di, tempBuf);
++//            // cd-hash of sigs that use SHA384 is the first 20 bytes of the SHA384 of the code digest
++//            memcpy(cdHash, digest, 20);
++//            callback(cdHash);
++//            return;
++//        }
++//        else if ( (cd->hashType == CS_HASHTYPE_SHA256) || (cd->hashType == CS_HASHTYPE_SHA256_TRUNCATED) ) {
++//            uint8_t digest[CCSHA256_OUTPUT_SIZE];
++//            const struct ccdigest_info* di = ccsha256_di();
++//            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
++//            ccdigest_init(di, tempBuf);
++//            ccdigest_update(di, tempBuf, cdLength, cd);
++//            ccdigest_final(di, tempBuf, digest);
++//            ccdigest_di_clear(di, tempBuf);
++//            // cd-hash of sigs that use SHA256 is the first 20 bytes of the SHA256 of the code digest
++//            memcpy(cdHash, digest, 20);
++//            callback(cdHash);
++//            return;
++//        }
++//        else if ( cd->hashType == CS_HASHTYPE_SHA1 ) {
++//            // compute hash directly into return buffer
++//            const struct ccdigest_info* di = ccsha1_di();
++//            ccdigest_di_decl(di, tempBuf); // declares tempBuf array in stack
++//            ccdigest_init(di, tempBuf);
++//            ccdigest_update(di, tempBuf, cdLength, cd);
++//            ccdigest_final(di, tempBuf, cdHash);
++//            ccdigest_di_clear(di, tempBuf);
++//            callback(cdHash);
++//            return;
++//        }
++//    });
+ }
+ 
+ 
+diff -ruN dyld-851.27-original/dyld3/shared-cache/dsc_extractor.cpp dyld-851.27-new/dyld3/shared-cache/dsc_extractor.cpp
+--- dyld-851.27-original/dyld3/shared-cache/dsc_extractor.cpp	2020-10-22 00:20:45.000000000 -0400
++++ dyld-851.27-new/dyld3/shared-cache/dsc_extractor.cpp	2021-06-01 13:52:48.000000000 -0400
+@@ -40,7 +40,7 @@
+ #include "CodeSigningTypes.h"
+ #include <CommonCrypto/CommonHMAC.h>
+ #include <CommonCrypto/CommonDigest.h>
+-#include <CommonCrypto/CommonDigestSPI.h>
++//#include <CommonCrypto/CommonDigestSPI.h>
+ 
+ #define NO_ULEB
+ #include "Architectures.hpp"
+@@ -667,57 +667,57 @@
+         return -1;
+     }
+ 
+-    uint32_t dscDigestFormat = kCCDigestNone;
+-    switch (cd->hashType) {
+-        case CS_HASHTYPE_SHA1:
+-#pragma clang diagnostic push
+-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+-            dscDigestFormat = kCCDigestSHA1;
+-#pragma clang diagnostic pop
+-            break;
+-        case CS_HASHTYPE_SHA256:
+-            dscDigestFormat = kCCDigestSHA256;
+-            break;
+-        default:
+-            break;
+-    }
+-
+-    if (dscDigestFormat != kCCDigestNone) {
+-        const uint64_t csPageSize = 1 << cd->pageSize;
+-        size_t   hashOffset = ntohl(cd->hashOffset);
+-        uint8_t* hashSlot = (uint8_t*)cd + hashOffset;
+-        uint8_t cdHashBuffer[cd->hashSize];
+-
+-        // Skip local symbols for now as those aren't being codesign correctly right now.
+-        size_t inBbufferSize = 0;
+-        for (auto& sharedCacheRegion : sharedCacheRegions) {
+-            if (sharedCacheRegion.first == dyldSharedCache->header.localSymbolsOffset)
+-                continue;
+-            inBbufferSize += (sharedCacheRegion.second - sharedCacheRegion.first);
+-        }
+-        uint32_t slotCountToProcess = (uint32_t)((inBbufferSize + pageSize - 1) / pageSize);
+-
+-        for (unsigned i = 0; i != slotCountToProcess; ++i) {
+-            // Skip data pages as those may have been slid by ASLR in the extracted file
+-            uint64_t fileOffset = i * csPageSize;
+-            bool isDataPage = false;
+-            for (unsigned mappingIndex = 1; mappingIndex != (dyldSharedCache->header.mappingCount - 1); ++mappingIndex) {
+-                if ( (fileOffset >= mappings[mappingIndex].fileOffset) && (fileOffset < (mappings[mappingIndex].fileOffset + mappings[mappingIndex].size)) ) {
+-                    isDataPage = true;
+-                    break;
+-                }
+-            }
+-            if ( isDataPage )
+-                continue;
+-
+-            CCDigest(dscDigestFormat, (uint8_t*)mapped_cache + fileOffset, (size_t)csPageSize, cdHashBuffer);
+-            uint8_t* cacheCdHashBuffer = hashSlot + (i * cd->hashSize);
+-            if (memcmp(cdHashBuffer, cacheCdHashBuffer, cd->hashSize) != 0)  {
+-                fprintf(stderr, "Error: dyld shared cache code signature for page %d is incorrect.\n", i);
+-                return -1;
+-            }
+-        }
+-    }
++//    uint32_t dscDigestFormat = kCCDigestNone;
++//    switch (cd->hashType) {
++//        case CS_HASHTYPE_SHA1:
++//#pragma clang diagnostic push
++//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
++//            dscDigestFormat = kCCDigestSHA1;
++//#pragma clang diagnostic pop
++//            break;
++//        case CS_HASHTYPE_SHA256:
++//            dscDigestFormat = kCCDigestSHA256;
++//            break;
++//        default:
++//            break;
++//    }
++//
++//    if (dscDigestFormat != kCCDigestNone) {
++//        const uint64_t csPageSize = 1 << cd->pageSize;
++//        size_t   hashOffset = ntohl(cd->hashOffset);
++//        uint8_t* hashSlot = (uint8_t*)cd + hashOffset;
++//        uint8_t cdHashBuffer[cd->hashSize];
++//
++//        // Skip local symbols for now as those aren't being codesign correctly right now.
++//        size_t inBbufferSize = 0;
++//        for (auto& sharedCacheRegion : sharedCacheRegions) {
++//            if (sharedCacheRegion.first == dyldSharedCache->header.localSymbolsOffset)
++//                continue;
++//            inBbufferSize += (sharedCacheRegion.second - sharedCacheRegion.first);
++//        }
++//        uint32_t slotCountToProcess = (uint32_t)((inBbufferSize + pageSize - 1) / pageSize);
++//
++//        for (unsigned i = 0; i != slotCountToProcess; ++i) {
++//            // Skip data pages as those may have been slid by ASLR in the extracted file
++//            uint64_t fileOffset = i * csPageSize;
++//            bool isDataPage = false;
++//            for (unsigned mappingIndex = 1; mappingIndex != (dyldSharedCache->header.mappingCount - 1); ++mappingIndex) {
++//                if ( (fileOffset >= mappings[mappingIndex].fileOffset) && (fileOffset < (mappings[mappingIndex].fileOffset + mappings[mappingIndex].size)) ) {
++//                    isDataPage = true;
++//                    break;
++//                }
++//            }
++//            if ( isDataPage )
++//                continue;
++//
++//            CCDigest(dscDigestFormat, (uint8_t*)mapped_cache + fileOffset, (size_t)csPageSize, cdHashBuffer);
++//            uint8_t* cacheCdHashBuffer = hashSlot + (i * cd->hashSize);
++//            if (memcmp(cdHashBuffer, cacheCdHashBuffer, cd->hashSize) != 0)  {
++//                fprintf(stderr, "Error: dyld shared cache code signature for page %d is incorrect.\n", i);
++//                return -1;
++//            }
++//        }
++//    }
+     return 0;
+ }
+ 
+diff -ruN dyld-851.27-original/include/mach-o/dyld.h dyld-851.27-new/include/mach-o/dyld.h
+--- dyld-851.27-original/include/mach-o/dyld.h	2020-07-16 13:43:28.000000000 -0400
++++ dyld-851.27-new/include/mach-o/dyld.h	2021-06-01 13:50:46.000000000 -0400
+@@ -118,7 +118,7 @@
+  * cannot stat() the file to see if it "exists".  This function is like a stat() call that checks if a
+  * path is to a dylib that was removed from disk and is incorporated into the active dyld cache.
+  */
+-extern bool _dyld_shared_cache_contains_path(const char* path)               __API_AVAILABLE(macos(11.0), ios(14.0), watchos(7.0), tvos(14.0), bridgeos(5.0)) DYLD_DRIVERKIT_UNAVAILABLE;
++extern bool _dyld_shared_cache_contains_path(const char* path)               __API_AVAILABLE(macos(11.0), ios(14.0), watchos(7.0), tvos(14.0)) DYLD_DRIVERKIT_UNAVAILABLE;
+ 
+ 
+ /*
+@@ -162,22 +162,22 @@
+ 
+ 
+ /* NSObjectFileImage can only be used with MH_BUNDLE files */
+-extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromFile(const char* pathName, NSObjectFileImage *objectFileImage)               __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
+-extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromMemory(const void *address, size_t size, NSObjectFileImage *objectFileImage) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern bool                        NSDestroyObjectFileImage(NSObjectFileImage objectFileImage)                                             __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlclose()");
+-
+-extern uint32_t     NSSymbolDefinitionCountInObjectFileImage(NSObjectFileImage objectFileImage)                   __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern const char*  NSSymbolDefinitionNameInObjectFileImage(NSObjectFileImage objectFileImage, uint32_t ordinal)  __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern uint32_t     NSSymbolReferenceCountInObjectFileImage(NSObjectFileImage objectFileImage)                    __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern const char*  NSSymbolReferenceNameInObjectFileImage(NSObjectFileImage objectFileImage, uint32_t ordinal, bool *tentative_definition) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern bool         NSIsSymbolDefinedInObjectFileImage(NSObjectFileImage objectFileImage, const char* symbolName) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern void*        NSGetSectionDataInObjectFileImage(NSObjectFileImage objectFileImage, const char* segmentName, const char* sectionName, size_t *size) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "getsectiondata()");
++extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromFile(const char* pathName, NSObjectFileImage *objectFileImage)               __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
++extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromMemory(const void *address, size_t size, NSObjectFileImage *objectFileImage) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern bool                        NSDestroyObjectFileImage(NSObjectFileImage objectFileImage)                                             __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlclose()");
++
++extern uint32_t     NSSymbolDefinitionCountInObjectFileImage(NSObjectFileImage objectFileImage)                   __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern const char*  NSSymbolDefinitionNameInObjectFileImage(NSObjectFileImage objectFileImage, uint32_t ordinal)  __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern uint32_t     NSSymbolReferenceCountInObjectFileImage(NSObjectFileImage objectFileImage)                    __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern const char*  NSSymbolReferenceNameInObjectFileImage(NSObjectFileImage objectFileImage, uint32_t ordinal, bool *tentative_definition) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern bool         NSIsSymbolDefinedInObjectFileImage(NSObjectFileImage objectFileImage, const char* symbolName) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern void*        NSGetSectionDataInObjectFileImage(NSObjectFileImage objectFileImage, const char* segmentName, const char* sectionName, size_t *size) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "getsectiondata()");
+ 
+ typedef struct __NSModule* NSModule;
+-extern const char*  NSNameOfModule(NSModule m)         __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern const char*  NSLibraryNameForModule(NSModule m) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern const char*  NSNameOfModule(NSModule m)         __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern const char*  NSLibraryNameForModule(NSModule m) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+ 
+-extern NSModule NSLinkModule(NSObjectFileImage objectFileImage, const char* moduleName, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
++extern NSModule NSLinkModule(NSObjectFileImage objectFileImage, const char* moduleName, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
+ #define NSLINKMODULE_OPTION_NONE                         0x0
+ #define NSLINKMODULE_OPTION_BINDNOW                      0x1
+ #define NSLINKMODULE_OPTION_PRIVATE                      0x2
+@@ -185,27 +185,27 @@
+ #define NSLINKMODULE_OPTION_DONT_CALL_MOD_INIT_ROUTINES  0x8
+ #define NSLINKMODULE_OPTION_TRAILING_PHYS_NAME          0x10
+ 
+-extern bool NSUnLinkModule(NSModule module, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern bool NSUnLinkModule(NSModule module, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+ #define NSUNLINKMODULE_OPTION_NONE                  0x0
+ #define NSUNLINKMODULE_OPTION_KEEP_MEMORY_MAPPED    0x1
+ #define NSUNLINKMODULE_OPTION_RESET_LAZY_REFERENCES	0x2
+ 
+ /* symbol API */
+ typedef struct __NSSymbol* NSSymbol;
+-extern bool     NSIsSymbolNameDefined(const char* symbolName)                                                    __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern bool     NSIsSymbolNameDefinedWithHint(const char* symbolName, const char* libraryNameHint)               __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern bool     NSIsSymbolNameDefinedInImage(const struct mach_header* image, const char* symbolName)            __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern NSSymbol NSLookupAndBindSymbol(const char* symbolName)                                                    __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern NSSymbol NSLookupAndBindSymbolWithHint(const char* symbolName, const char* libraryNameHint)               __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern NSSymbol NSLookupSymbolInModule(NSModule module, const char* symbolName)                                  __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
+-extern NSSymbol NSLookupSymbolInImage(const struct mach_header* image, const char* symbolName, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
++extern bool     NSIsSymbolNameDefined(const char* symbolName)                                                    __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern bool     NSIsSymbolNameDefinedWithHint(const char* symbolName, const char* libraryNameHint)               __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern bool     NSIsSymbolNameDefinedInImage(const struct mach_header* image, const char* symbolName)            __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern NSSymbol NSLookupAndBindSymbol(const char* symbolName)                                                    __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern NSSymbol NSLookupAndBindSymbolWithHint(const char* symbolName, const char* libraryNameHint)               __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern NSSymbol NSLookupSymbolInModule(NSModule module, const char* symbolName)                                  __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
++extern NSSymbol NSLookupSymbolInImage(const struct mach_header* image, const char* symbolName, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
+ #define NSLOOKUPSYMBOLINIMAGE_OPTION_BIND            0x0
+ #define NSLOOKUPSYMBOLINIMAGE_OPTION_BIND_NOW        0x1
+ #define NSLOOKUPSYMBOLINIMAGE_OPTION_BIND_FULLY      0x2
+ #define NSLOOKUPSYMBOLINIMAGE_OPTION_RETURN_ON_ERROR 0x4
+-extern const char*  NSNameOfSymbol(NSSymbol symbol)    __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+-extern void *       NSAddressOfSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
+-extern NSModule     NSModuleForSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dladdr()");
++extern const char*  NSNameOfSymbol(NSSymbol symbol)    __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern void *       NSAddressOfSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
++extern NSModule     NSModuleForSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dladdr()");
+ 
+ /* error handling API */
+ typedef enum {
+@@ -233,7 +233,7 @@
+     NSOtherErrorInvalidArgs
+ } NSOtherErrorNumbers;
+ 
+-extern void NSLinkEditError(NSLinkEditErrors *c, int *errorNumber, const char** fileName, const char** errorString) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlerror()");
++extern void NSLinkEditError(NSLinkEditErrors *c, int *errorNumber, const char** fileName, const char** errorString) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlerror()");
+ 
+ typedef struct {
+      void     (*undefined)(const char* symbolName);
+@@ -242,27 +242,27 @@
+                           const char* fileName, const char* errorString);
+ } NSLinkEditErrorHandlers;
+ 
+-extern void NSInstallLinkEditErrorHandlers(const NSLinkEditErrorHandlers *handlers) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
++extern void NSInstallLinkEditErrorHandlers(const NSLinkEditErrorHandlers *handlers) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
+ 
+-extern bool                      NSAddLibrary(const char* pathName)                   __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlopen()");
+-extern bool                      NSAddLibraryWithSearching(const char* pathName)      __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlopen()");
+-extern const struct mach_header* NSAddImage(const char* image_name, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
++extern bool                      NSAddLibrary(const char* pathName)                   __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlopen()");
++extern bool                      NSAddLibraryWithSearching(const char* pathName)      __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlopen()");
++extern const struct mach_header* NSAddImage(const char* image_name, uint32_t options) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
+ #define NSADDIMAGE_OPTION_NONE                  	0x0
+ #define NSADDIMAGE_OPTION_RETURN_ON_ERROR       	0x1
+ #define NSADDIMAGE_OPTION_WITH_SEARCHING        	0x2
+ #define NSADDIMAGE_OPTION_RETURN_ONLY_IF_LOADED 	0x4
+ #define NSADDIMAGE_OPTION_MATCH_FILENAME_BY_INSTALLNAME	0x8
+ 
+-extern bool _dyld_present(void)                                                              __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "always true");
+-extern bool _dyld_launched_prebound(void)                                                    __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "moot");
+-extern bool _dyld_all_twolevel_modules_prebound(void)                                        __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "moot");
+-extern bool _dyld_bind_fully_image_containing_address(const void* address)                   __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen(RTLD_NOW)");
+-extern bool _dyld_image_containing_address(const void* address)                              __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "dladdr()");
+-extern void _dyld_lookup_and_bind(const char* symbol_name, void **address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern void _dyld_lookup_and_bind_with_hint(const char* symbol_name, const char* library_name_hint, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
+-extern void _dyld_lookup_and_bind_fully(const char* symbol_name, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
++extern bool _dyld_present(void)                                                              __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "always true");
++extern bool _dyld_launched_prebound(void)                                                    __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "moot");
++extern bool _dyld_all_twolevel_modules_prebound(void)                                        __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "moot");
++extern bool _dyld_bind_fully_image_containing_address(const void* address)                   __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen(RTLD_NOW)");
++extern bool _dyld_image_containing_address(const void* address)                              __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "dladdr()");
++extern void _dyld_lookup_and_bind(const char* symbol_name, void **address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern void _dyld_lookup_and_bind_with_hint(const char* symbol_name, const char* library_name_hint, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
++extern void _dyld_lookup_and_bind_fully(const char* symbol_name, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
+ 
+-extern const struct mach_header*  _dyld_get_image_header_containing_address(const void* address) __API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "dladdr()");
++extern const struct mach_header*  _dyld_get_image_header_containing_address(const void* address) __API_UNAVAILABLE(ios, tvos, watchos) DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "dladdr()");
+ 
+ 
+ #if __cplusplus
+diff -ruN dyld-851.27-original/include/mach-o/dyld_priv.h dyld-851.27-new/include/mach-o/dyld_priv.h
+--- dyld-851.27-original/include/mach-o/dyld_priv.h	2020-07-16 13:43:28.000000000 -0400
++++ dyld-851.27-new/include/mach-o/dyld_priv.h	2021-06-01 13:49:22.000000000 -0400
+@@ -127,7 +127,7 @@
+ } dyld_build_version_t;
+ 
+ // Returns the active platform of the process
+-extern dyld_platform_t dyld_get_active_platform(void) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern dyld_platform_t dyld_get_active_platform(void) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Base platforms are platforms that have version numbers (macOS, iOS, watchos, tvOS, bridgeOS)
+ // All other platforms are mapped to a base platform for version checks
+@@ -153,27 +153,27 @@
+ //      Old behaviour all other platforms, as well as older iOSes and watchOSes
+ //  }
+ 
+-extern dyld_platform_t dyld_get_base_platform(dyld_platform_t platform) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern dyld_platform_t dyld_get_base_platform(dyld_platform_t platform) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // SPI to ask if a platform is a simulation platform
+-extern bool dyld_is_simulator_platform(dyld_platform_t platform) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern bool dyld_is_simulator_platform(dyld_platform_t platform) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Takes a version and returns if the image was built againt that SDK or newer
+ // In the case of multi_plaform mach-o's it tests against the active platform
+-extern bool dyld_sdk_at_least(const struct mach_header* mh, dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern bool dyld_sdk_at_least(const struct mach_header* mh, dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Takes a version and returns if the image was built with that minos version or newer
+ // In the case of multi_plaform mach-o's it tests against the active platform
+-extern bool dyld_minos_at_least(const struct mach_header* mh, dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern bool dyld_minos_at_least(const struct mach_header* mh, dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Convenience versions of the previous two functions that run against the the main executable
+-extern bool dyld_program_sdk_at_least(dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
+-extern bool dyld_program_minos_at_least(dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern bool dyld_program_sdk_at_least(dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
++extern bool dyld_program_minos_at_least(dyld_build_version_t version) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Function that walks through the load commands and calls the internal block for every version found
+ // Intended as a fallback for very complex (and rare) version checks, or for tools that need to
+ // print our everything for diagnostic reasons
+-extern void dyld_get_image_versions(const struct mach_header* mh, void (^callback)(dyld_platform_t platform, uint32_t sdk_version, uint32_t min_version)) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0), bridgeos(3.0));
++extern void dyld_get_image_versions(const struct mach_header* mh, void (^callback)(dyld_platform_t platform, uint32_t sdk_version, uint32_t min_version)) __API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
+ 
+ // Convienence constants for dyld version SPIs.
+ 
